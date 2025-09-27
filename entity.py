@@ -1,6 +1,5 @@
 from euclid3 import Vector2
 
-<<<<<<< HEAD
 class Player:
     
     def __init__(self, name:str,team:str,speed:float, position:Vector2):
@@ -25,7 +24,6 @@ class Ball:
         self.position = position        
 
 
-=======
 
 class Ball:
     position: Vector2
@@ -90,7 +88,7 @@ class Player:
     def get_effective_attr(self, group:str, attr:str):
         base = self.attributes[group].attributes[attr]
         modifier = 1.0
-        return base
+        return base * modifier
 
     def add_status(self, status: Status):
         self.statuses.append(status)
@@ -168,4 +166,3 @@ class Game:
     def update(self):
         pass
     
->>>>>>> a427973 (added statuses and attributes stubs)
