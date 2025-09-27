@@ -1,29 +1,5 @@
 from euclid3 import Vector2
-
-class Player:
-    
-    def __init__(self, name:str,team:str,speed:float, position:Vector2):
-        self.name = name
-        self.team = team
-        self.speed = speed
-        self.position = position
-
-
-
-class Team:
-
-    def __init__(self, name:str):
-        self.name = name
-
-
-
-
-class Ball:
-
-    def __init__(self, position:Vector2):
-        self.position = position        
-
-
+import random
 
 class Ball:
     position: Vector2
@@ -102,6 +78,8 @@ class Player:
     def move(self, direction: Vector2):
         pass
 
+    def distance_to_ball(self, ball: Ball):
+        return (ball.position - self.position).magnitude()
 
     #moves in the direction of the given target, scaled by speed
     def move_towards_target(self, target: Vector2):
@@ -151,18 +129,4 @@ class Field:
         self.width = width
         
 
-class Game:
-    field: Field
-    teams: tuple[Team,Team]
-    ball: Ball
-    gameLength: int
 
-    def __init__(self, field:Field,team1:Team,team2:Team) -> None:
-        self.field = field
-        self.gameLength = 30
-        self.teams = (team1,team2)
-        self.ballball = Ball(Vector2(self.field.length/2, self.field.width/2))
-
-    def update(self):
-        pass
-    
