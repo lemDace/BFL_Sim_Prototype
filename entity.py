@@ -99,7 +99,7 @@ class Player:
 
     #kicks the ball if they have it in the direction given, scaled by kick_strength
     def kick_ball(self, ball: Ball, direction: Vector2, power: float):
-        ball.kick(direction,power)
+        ball.kick(direction.normalize(),power)
         self.has_ball = False
         
 

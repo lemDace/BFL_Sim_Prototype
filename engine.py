@@ -32,10 +32,16 @@ class GameEngine:
         closest_player_to_ball.move_towards_target(self.ball.position)
 
         if closest_player_to_ball.distance_to_ball(self.ball) < 5:
-            closest_player_to_ball.pick_up_ball(self.ball)
-            self.log.append(f"Tick {self.tick_count}: {closest_player_to_ball.name} picked up the ball")
-            closest_player_to_ball.kick_ball(self.ball,Vector2(random.randint(50, 750),random.randint(50,550)),10)
-            self.log.append(f"Tick {self.tick_count}: {closest_player_to_ball.name} kicked the ball")
+            
+            if closest_player_to_ball.has_ball == False:
+
+                closest_player_to_ball.pick_up_ball(self.ball)
+                self.log.append(f"Tick {self.tick_count}: {closest_player_to_ball.name} picked up the ball")
+
+            if closest_player_to_ball.has_ball == True:
+
+                closest_player_to_ball.kick_ball(self.ball,Vector2(random.randint(50, 750),random.randint(50,550)),10)
+                self.log.append(f"Tick {self.tick_count}: {closest_player_to_ball.name} kicked the ball")
             
         if self.tick_count % 20 == 0:
             self.log.append(f"Ball at ({self.ball.position.x:.1f},{self.ball.position.y:.1f})")
