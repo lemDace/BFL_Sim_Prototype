@@ -1,24 +1,38 @@
 from euclid3 import Vector2
+from typing import Tuple
 import random
 
 class Ball:
     position: Vector2
     velocity: Vector2
-    #carrier: 'Player'
+    friction: float #how much speed is kept each update
+    min_speed: float #stop the ball if slower than this
 
     def __init__(self, position: Vector2, velocity:Vector2=Vector2(0,0)) -> None:
         self.position = position
         self.velocity = velocity
-        self.carrier = None
+        self.friction = 0.95
+        self.min_speed = 0.1
 
     #updates position of ball based on velocity (notes: things like weather can effect its slowdown speed
     def update(self) -> None:
-        self.position = self.position + self.velocity
+        #move ball
+        self.position = self.position + self.velocity #could also do self.position+= self.velocity
+
+        #apply friction/drag
+        self.velocity = self.velocity * self.friction
+
+        #stop ball if going too slow
+        if self.velocity.magnitude() < self.min_speed:
+            self.velocity = Vector2(0,0)
 
     #applies velocity to the ball
     def kick(self, direction: Vector2, power: float):
-        new_pos = (self.position + direction) * power
-        self.position = new_pos
+        #new_pos = (self.position + direction) * power
+        self.velocity = direction.normalized() * power
+
+    def set_velocity(self, velocity: Vector2):
+        self.velocity = velocity
         
 
 
@@ -99,7 +113,7 @@ class Player:
 
     #kicks the ball if they have it in the direction given, scaled by kick_strength
     def kick_ball(self, ball: Ball, direction: Vector2, power: float):
-        ball.kick(direction.normalize(),power)
+        ball.kick(direction,power)
         self.has_ball = False
         
 
@@ -108,10 +122,12 @@ class Team:
     name: str
     players: list[Player]
     score: int
+    color: Tuple[int, int, int]
 
-    def __init__(self, name:str,score:int=0) -> None:
+    def __init__(self, name:str,color: Tuple[int,int,int],score:int=0) -> None:
         self.name = name
         self.score = score
+        self.color = color
         self.players = []
 
     def add_player(self, player: Player) -> None:

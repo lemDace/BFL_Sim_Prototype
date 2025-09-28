@@ -15,6 +15,7 @@ class GameEngine:
         self.ball = Ball(Vector2(self.field.length/2, self.field.width/2))
         self.log: list[str] = []
         self.tick_count: int = 0
+        self.active_players = self.home_team.get_active_players() + self.away_team.get_active_players()
 
     #return a list of all active players in this game
     def get_all_players(self) -> list[Player]:
@@ -25,8 +26,8 @@ class GameEngine:
         self.tick_count += 1
 
         #find closest player to ball
-        active_players = self.get_all_players()
-        closest_player_to_ball = min(active_players,key=lambda p: p.distance_to_ball(self.ball))
+        #active_players = self.get_all_players()
+        closest_player_to_ball = min(self.active_players,key=lambda p: p.distance_to_ball(self.ball))
 
         #move closest player toward ball
         closest_player_to_ball.move_towards_target(self.ball.position)
@@ -40,8 +41,10 @@ class GameEngine:
 
             if closest_player_to_ball.has_ball == True:
 
-                closest_player_to_ball.kick_ball(self.ball,Vector2(random.randint(50, 750),random.randint(50,550)),10)
+                closest_player_to_ball.kick_ball(self.ball,Vector2(random.randint(-350, 350),random.randint(-250,250)),10)
                 self.log.append(f"Tick {self.tick_count}: {closest_player_to_ball.name} kicked the ball")
+
+        self.ball.update()
             
         if self.tick_count % 20 == 0:
             self.log.append(f"Ball at ({self.ball.position.x:.1f},{self.ball.position.y:.1f})")
