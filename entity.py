@@ -17,7 +17,9 @@ class Ball:
 
     #applies velocity to the ball
     def kick(self, direction: Vector2, power: float):
-        pass
+        new_pos = (self.position + direction) * power
+        self.position = new_pos
+        
 
 
     #ball is no longer held. Apply when ball is kicked
@@ -97,7 +99,8 @@ class Player:
 
     #kicks the ball if they have it in the direction given, scaled by kick_strength
     def kick_ball(self, ball: Ball, direction: Vector2, power: float):
-        self.has_ball = True
+        ball.kick(direction,power)
+        self.has_ball = False
         
 
 
