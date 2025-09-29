@@ -2,14 +2,28 @@ from euclid3 import Vector2
 from typing import Tuple
 import random
 
+
+class Field:
+    location: str
+    length: float
+    width: float
+
+    def __init__(self, location:str, length:float=1000, width:float=500) -> None:
+        self.location = location
+        self.length = length
+        self.width = width
+        
 class Ball:
     position: Vector2
     velocity: Vector2
     friction: float #how much speed is kept each update
     min_speed: float #stop the ball if slower than this
+    field: Field #the field the ball is on. used to get field size and boundaries
 
-    def __init__(self, position: Vector2, velocity:Vector2=Vector2(0,0)) -> None:
-        self.position = position
+    def __init__(self, field: Field, velocity:Vector2=Vector2(0,0)) -> None:
+        self.field = field
+        print(type(field), repr(field))
+        self.position = Vector2(self.field.length/2,self.field.width/2)
         self.velocity = velocity
         self.friction = 0.95
         self.min_speed = 0.1
@@ -21,6 +35,12 @@ class Ball:
 
         #apply friction/drag
         self.velocity = self.velocity * self.friction
+
+        if self.position.x < 0 or self.position.x > self.field.length:
+            self.velocity = -self.velocity
+
+        if self.position.y < 0 or self.position.y > self.field.width:
+            self.velocity = -self.velocity
 
         #stop ball if going too slow
         if self.velocity.magnitude() < self.min_speed:
@@ -137,15 +157,5 @@ class Team:
         return self.players
     
 
-class Field:
-    location: str
-    length: float
-    width: float
-
-    def __init__(self, location:str, length:float=1000, width:float=500) -> None:
-        self.location = location
-        self.length = length
-        self.width = width
-        
 
 

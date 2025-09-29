@@ -12,7 +12,7 @@ class GameEngine:
         self.gameLength = 30
         self.home_team = hometeam
         self.away_team = awayteam
-        self.ball = Ball(Vector2(self.field.length/2, self.field.width/2))
+        self.ball = Ball(self.field)
         self.log: list[str] = []
         self.tick_count: int = 0
         self.active_players = self.home_team.get_active_players() + self.away_team.get_active_players()

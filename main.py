@@ -7,8 +7,8 @@ from engine import GameEngine
 
 def run_game() -> None:
     
-    screen_width: int = 1200#800
-    screen_height: int = 800#600
+    screen_width: int = 800#1200#800
+    screen_height: int = 600#800#600
 
 
     pygame.init()
@@ -29,12 +29,12 @@ def run_game() -> None:
     home_team: Team = Team("Red", red)
     away_team: Team = Team("Blue", blue)
 
-    for i in range(5):
-        home_team.add_player(Player(f"R{i}",Vector2(500,100+i*70),random.randint(1,2)))
-        away_team.add_player(Player(f"B{i}",Vector2(300,100+i*70),random.randint(1,2)))
+    for i in range(10):
+        home_team.add_player(Player(f"R{i}",Vector2(500,100+i*50),random.randint(2,2)))
+        away_team.add_player(Player(f"B{i}",Vector2(300,100+i*50),random.randint(2,2)))
 
     #ball
-    ball: Ball = Ball(Vector2(400,300))
+    ball: Ball = Ball(field)
 
     engine: GameEngine = GameEngine(field,home_team,away_team)
 
