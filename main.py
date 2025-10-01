@@ -20,14 +20,16 @@ def run_game() -> None:
     red: Tuple[int, int, int] = (255, 0, 0)
     blue: Tuple[int, int, int] = (0, 0, 255)
     white: Tuple[int, int, int] = (255, 255, 255)
+    green: Tuple[int, int, int] = (100, 255, 200)
+    purple: Tuple[int, int, int] = (220, 0, 234)
 
     #field
     field: Field = Field("MCG",screen_width,screen_height)
 
 
     #teams
-    home_team: Team = Team("Red", red)
-    away_team: Team = Team("Blue", blue)
+    home_team: Team = Team("Green", green)
+    away_team: Team = Team("Purple", purple)
 
     for i in range(10):
         home_team.add_player(Player(f"R{i}",Vector2(500,100+i*50),random.randint(2,2)))
