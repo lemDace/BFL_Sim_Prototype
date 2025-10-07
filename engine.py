@@ -1,3 +1,5 @@
+from euclid3 import Vector2
+import random
 from entity import *
 
 class GameEngine:
@@ -5,7 +7,7 @@ class GameEngine:
     home_team: Team
     away_team: Team
     ball: Ball
-    gameLength: int
+    gameLength: float
 
     def __init__(self, field:Field,hometeam:Team,awayteam:Team) -> None:
         self.field = field
@@ -46,5 +48,6 @@ class GameEngine:
 
         self.ball.update()
             
-        if self.tick_count % 20 == 0:
+        if self.tick_count % 65 == 0:
             self.log.append(f"Ball at ({self.ball.position.x:.1f},{self.ball.position.y:.1f})")
+            self.log.append(f"{closest_player_to_ball.name} focus is: {closest_player_to_ball.get_attribute('focus')}")

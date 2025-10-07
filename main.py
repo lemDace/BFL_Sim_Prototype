@@ -1,9 +1,10 @@
 import pygame
 from typing import Tuple
-import euclid3
-import entity
-from entity import *
+from euclid3 import Vector2
+from entity import Player,Field, Team
 from engine import GameEngine
+from effects import Status
+import random
 
 def run_game() -> None:
     
@@ -31,13 +32,11 @@ def run_game() -> None:
     home_team: Team = Team("Green", green)
     away_team: Team = Team("Purple", purple)
 
-    for i in range(10):
-        home_team.add_player(Player(f"R{i}",Vector2(500,100+i*50),random.randint(2,2)))
-        away_team.add_player(Player(f"B{i}",Vector2(300,100+i*50),random.randint(2,2)))
+    for i in range(3):
+        home_team.add_player(Player(f"R{i}",Vector2(500,100+i*200),random.randint(2,2)))
+        away_team.add_player(Player(f"B{i}",Vector2(300,100+i*200),random.randint(2,2)))
 
-    #ball
-    ball: Ball = Ball(field)
-
+    
     engine: GameEngine = GameEngine(field,home_team,away_team)
 
     while running:
