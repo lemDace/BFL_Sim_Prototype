@@ -1,0 +1,18 @@
+{
+  "physical": {
+    "speed": 70,
+    "strength": 65,
+    "stamina": 60,
+    "agility": 55
+  },
+  "mental": {
+    "focus": 68,
+    "willpower": 72,
+    "composure": 66
+  },
+  "technical": {
+    "accuracy": 75,
+    "kicking": 70,
+    "passing": 60
+  }
+}
