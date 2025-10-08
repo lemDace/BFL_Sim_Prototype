@@ -6,19 +6,20 @@ from effects import Status
 
 
 # Defines the Player entity
-# Each palyer has indentifying ifo, a position, and an Attributes object
+# Each player has indentifying ifo, a position, and an Attributes object
 
 class Player:
     id: int
     name: str
     age: int
+    team: str
     started_playing: int
     position_played: str
     position: Vector2
 
 
     def __init__(self, id: int, name: str, age: int, started_playing: int, 
-                 positionPlayed: str, attributes: dict):
+                 team:str, positionPlayed: str, attributes: dict):
         #Creates new palyer instance
         # 'attributes' is expected to be a dictionary loaded from json
         self.id = id
@@ -26,6 +27,7 @@ class Player:
         self.position_played = positionPlayed
         self.age = age
         self.started_playing = started_playing
+        self.team = team
         self.attributes = Attributes.from_dict(attributes)
 
 
@@ -38,7 +40,7 @@ class Player:
     def __repr__(self):
         # Developer-friendly summary of a player (name + attributes)
         #return f"<Player {self.name}: {self.attributes.as_dict()}>" 
-        return f"<Player {self.name} ({self.position}), age={self.age}>"       
+        return f"<Player {self.name} ({self.team}), age={self.age}>"       
 
     def as_dict(self):
         #Convert back to a JSON-friendly dictionary, e.g. for saving updated player data.
@@ -49,6 +51,7 @@ class Player:
             "age": self.age,
             "started_playing": self.started_playing,
             "position_played": self.positionPlayed,
+            "team": self.team,
             "attributes": self.attributes.as_dict()
         }
 

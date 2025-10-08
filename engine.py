@@ -25,7 +25,7 @@ class GameEngine:
         #prints all players loaded and their speed attribute
         print(f"Loaded {len(self.players)} players:")
         for p in self.players:
-            print(f" - {p.name}: speed={p.attributes.get('physical', 'speed')}")
+            print(f" - {p.name}: Plays for {p.team} ,speed={p.attributes.get('physical', 'speed')}")
 
         #self.active_players = self.home_team.get_active_players() + self.away_team.get_active_players()
 
@@ -44,6 +44,7 @@ class GameEngine:
                 name=p['name'],
                 age=p['age'],
                 started_playing=p['started_playing'],
+                team=p['team'],
                 positionPlayed=p['position_played'],
                 attributes=p['attributes']
             )

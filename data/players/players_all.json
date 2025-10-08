@@ -6,6 +6,7 @@
         "name": "Krizzler",
         "age": 35,
         "started_playing": 2022,
+        "team": "Midwest Midwives",
         "position_played": "Forward",
         "attributes": {
         "physical": {
@@ -32,6 +33,7 @@
         "name": "Dashy",
         "age": 9,
         "started_playing": 2025,
+        "team": "Allstar Axolotlys",
         "position_played": "Defender",
         "attributes": {
         "physical": {
@@ -58,6 +60,7 @@
         "name": "Pippa",
         "age": 4,
         "started_playing": 2025,
+        "team": "Allstar Axolotlys",
         "position_played": "Forward",
         "attributes": {
         "physical": {
@@ -84,6 +87,7 @@
         "name": "Leeroy",
         "age": 43,
         "started_playing": 2001,
+        "team": "Cool Kids",
         "position_played": "Midfielder",
         "attributes": {
         "physical": {
@@ -110,6 +114,7 @@
         "name": "Jaybo",
         "age": 40,
         "started_playing": 2005,
+        "team": "Midwest Midwives",
         "position_played": "Defender",
         "attributes": {
         "physical": {
@@ -136,6 +141,7 @@
         "name": "Sian",
         "age": 42,
         "started_playing": 2015,
+        "team": "Cool Kids",
         "position_played": "Forward",
         "attributes": {
         "physical": {
