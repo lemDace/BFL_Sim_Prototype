@@ -1,66 +1,70 @@
 
 
 class AttributeGroup:
-    def __init__(self, **attributes):
-        # **attributes collects any keyword arguments into a Python dict
-        # Example call: AttributeGroup(speed=50, strength=60)
-        # attributes will be {'speed': 50, 'strength': 60}
-        self.values = attributes   # store the attributes in a dict
+    #Represents a single group of related attributes, e.g. 'physical' or 'mental'.
+
+    def __init__(self, name: str, attributes: dict):
+        self.name = name
+        self.attributes = attributes  # dictionary: {attribute_name: value}
 
     def __getitem__(self, key):
-        # Called when you do group[key], for example: group['speed']
-        # We return the stored value if present, otherwise 0 (safe default)
-        return self.values.get(key, 0)
+        #Allows accessing attributes like: player.attributes.groups['physical']['speed']
+        return self.attributes.get(key)
 
     def __setitem__(self, key, value):
-        # Called when you assign: group['speed'] = 70
-        self.values[key] = value
+        #Allows setting attributes like: player.attributes.groups['physical']['speed'] = 95
+        self.attributes[key] = value
 
     def as_dict(self):
-        # Return a plain Python dict representing this group's data.
-        # dict(self.values) makes a shallow copy, so callers won't be editing
-        # the internal dict by accident.
-        return dict(self.values)
+        #Convert group back to a plain dictionary (useful for saving to JSON)
+        return self.attributes
 
     def __repr__(self):
-        # This is the "official" string representation used by `print()` and the REPL.
-        # Keep it simple and developer-focused.
-        return f"{self.values}"
+        #Readable string version for debugging.
+        return f"<AttributeGroup {self.name}: {self.attributes}>"
     
-    # The Attributes container that groups multiple AttributeGroup objects
+    
 class Attributes:
-    def __init__(self):
-        # Create default groups with default values.
-        # You can change these defaults, add new groups, or load from a template later.
-        self.physical = AttributeGroup(
-            speed=50,
-            strength=50,
-            stamina=50,
-            agility=50,
-        )
-        self.mental = AttributeGroup(
-            focus=50,
-            willpower=50,
-            composure=50,
-        )
-        self.technical = AttributeGroup(
-            accuracy=50,
-            kicking=50,
-            passing=50,
-        )
+    #Container for all attribute groups belonging to an entity (player, coach, etc.)
 
+    def __init__(self, groups=None):
+        self.groups = groups or {}
+        
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        #Factory method to create an Attributes object from a JSON/dict structure.
+        #Example input:
+        #{
+        #    "physical": {"speed": 90, "strength": 80},
+        #    "mental": {"focus": 75}
+        #}
+        
+        groups = {}
+        for group_name, attrs in data.items():
+            groups[group_name] = AttributeGroup(group_name, attrs)
+        return cls(groups)
+    
     def as_dict(self):
-        # Convert the entire Attributes object to a nested dict suitable for JSON.
-        return {
-            'physical': self.physical.as_dict(),
-            'mental': self.mental.as_dict(),
-            'technical': self.technical.as_dict()
-        }
+        #Convert all groups back into a JSON-friendly dictionary.
 
-    def get(self, attr_name):
-        # Generic getter: search each group for the named attribute.
-        # Returns the found value, or None if not found at all.
-        for group in (self.physical, self.mental, self.technical):
-            if attr_name in group.values:
-                return group[attr_name]
+        return {name: group.as_dict() for name, group in self.groups.items()}
+
+    def get(self, group_name, attribute_name):
+        #Safely get a specific attribute value.
+        
+        group = self.groups.get(group_name)
+        if group:
+            return group[attribute_name]
         return None
+    
+    def set(self, group_name, attribute_name, value):
+        #Safely update an attribute
+
+        if group_name not in self.groups:
+            self.groups[group_name] = AttributeGroup(group_name, {})
+        self.groups[group_name][attribute_name] = value
+
+    def __repr__(self):
+        return f"<Attributes {', '.join(self.groups.keys())}>"
+       

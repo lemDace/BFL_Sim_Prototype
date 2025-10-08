@@ -1,0 +1,160 @@
+{
+  "players": [
+    {
+    
+        "id": 1,
+        "name": "Krizzler",
+        "age": 35,
+        "started_playing": 2022,
+        "position": "forward",
+        "attributes": {
+        "physical": {
+            "speed": 92,
+            "strength": 88,
+            "stamina": 91,
+            "agility": 85
+        },
+        "mental": {
+            "focus": 70,
+            "willpower": 75,
+            "composure": 68
+        },
+        "technical": {
+            "accuracy": 82,
+            "kicking": 85,
+            "passing": 77
+        }
+        }
+    },
+    {
+    
+        "id": 2,
+        "name": "Dashy",
+        "age": 9,
+        "started_playing": 2025,
+        "position": "forward",
+        "attributes": {
+        "physical": {
+            "speed": 92,
+            "strength": 88,
+            "stamina": 91,
+            "agility": 85
+        },
+        "mental": {
+            "focus": 70,
+            "willpower": 75,
+            "composure": 68
+        },
+        "technical": {
+            "accuracy": 82,
+            "kicking": 85,
+            "passing": 77
+        }
+        }
+    },
+        {
+    
+        "id": 3,
+        "name": "Pippa",
+        "age": 4,
+        "started_playing": 2025,
+        "position": "forward",
+        "attributes": {
+        "physical": {
+            "speed": 92,
+            "strength": 88,
+            "stamina": 91,
+            "agility": 85
+        },
+        "mental": {
+            "focus": 70,
+            "willpower": 75,
+            "composure": 68
+        },
+        "technical": {
+            "accuracy": 82,
+            "kicking": 85,
+            "passing": 77
+        }
+        }
+    },
+        {
+    
+        "id": 4,
+        "name": "Leeroy",
+        "age": 43,
+        "started_playing": 2001,
+        "position": "forward",
+        "attributes": {
+        "physical": {
+            "speed": 92,
+            "strength": 88,
+            "stamina": 91,
+            "agility": 85
+        },
+        "mental": {
+            "focus": 70,
+            "willpower": 75,
+            "composure": 68
+        },
+        "technical": {
+            "accuracy": 82,
+            "kicking": 85,
+            "passing": 77
+        }
+        }
+    },
+        {
+    
+        "id": 5,
+        "name": "Jaybo",
+        "age": 40,
+        "started_playing": 2005,
+        "position": "forward",
+        "attributes": {
+        "physical": {
+            "speed": 92,
+            "strength": 88,
+            "stamina": 91,
+            "agility": 85
+        },
+        "mental": {
+            "focus": 70,
+            "willpower": 75,
+            "composure": 68
+        },
+        "technical": {
+            "accuracy": 82,
+            "kicking": 85,
+            "passing": 77
+        }
+        }
+    },
+        {
+    
+        "id": 6,
+        "name": "Sian",
+        "age": 42,
+        "started_playing": 2015,
+        "position": "forward",
+        "attributes": {
+        "physical": {
+            "speed": 92,
+            "strength": 88,
+            "stamina": 91,
+            "agility": 85
+        },
+        "mental": {
+            "focus": 70,
+            "willpower": 75,
+            "composure": 68
+        },
+        "technical": {
+            "accuracy": 82,
+            "kicking": 85,
+            "passing": 77
+        }
+        }
+    }
+  ]
+}

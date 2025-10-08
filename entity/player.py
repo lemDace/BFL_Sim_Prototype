@@ -5,24 +5,29 @@ from attributes import Attributes,AttributeGroup
 from effects import Status
 
 
-class Player:
-    name: str
-    position: Vector2
-    speed: float
-    kick_strength: float
-    stamina: float
-    has_ball: bool
+# Defines the Player entity
+# Each palyer has indentifying ifo, a position, and an Attributes object
 
-    def __init__(self, name: str, position: Vector2, speed: float = 1.0, kickStrength : float = 2.0, stamina: float = 10.0):
+class Player:
+    id: int
+    name: str
+    started_playing: int
+    position: Vector2
+
+
+    def __init__(self, id: int, name: str, age: int, started_playing: int, 
+                 position: Vector2, attributes: dict):
+        #Creates new palyer instance
+        # 'attributes' is expected to be a dictionary loaded from json
+        self.id = id
         self.name = name
         self.position = position
-        self.speed = speed
-        self.kick_strength = kickStrength
-        self.stamina = stamina
-        self.has_ball = False
-        self.attributes = Attributes()  #each palyer gets their own attributes instance
+        self.age = age
+        self.started_playing = started_playing
+        self.attributes = Attributes.from_dict(attributes)
 
-        self.statuses = []
+
+        #self.statuses = []
 
     def get_attribute(self, name):
         # Convenience wrapper around Attributes.get
