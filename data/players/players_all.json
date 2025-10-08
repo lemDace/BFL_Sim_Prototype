@@ -6,10 +6,10 @@
         "name": "Krizzler",
         "age": 35,
         "started_playing": 2022,
-        "position": "forward",
+        "position_played": "Forward",
         "attributes": {
         "physical": {
-            "speed": 92,
+            "speed": 75,
             "strength": 88,
             "stamina": 91,
             "agility": 85
@@ -20,7 +20,7 @@
             "composure": 68
         },
         "technical": {
-            "accuracy": 82,
+            "accuracy": 99,
             "kicking": 85,
             "passing": 77
         }
@@ -32,10 +32,10 @@
         "name": "Dashy",
         "age": 9,
         "started_playing": 2025,
-        "position": "forward",
+        "position_played": "Defender",
         "attributes": {
         "physical": {
-            "speed": 92,
+            "speed": 95,
             "strength": 88,
             "stamina": 91,
             "agility": 85
@@ -46,7 +46,7 @@
             "composure": 68
         },
         "technical": {
-            "accuracy": 82,
+            "accuracy": 80,
             "kicking": 85,
             "passing": 77
         }
@@ -58,10 +58,10 @@
         "name": "Pippa",
         "age": 4,
         "started_playing": 2025,
-        "position": "forward",
+        "position_played": "Forward",
         "attributes": {
         "physical": {
-            "speed": 92,
+            "speed": 70,
             "strength": 88,
             "stamina": 91,
             "agility": 85
@@ -72,7 +72,7 @@
             "composure": 68
         },
         "technical": {
-            "accuracy": 82,
+            "accuracy": 40,
             "kicking": 85,
             "passing": 77
         }
@@ -84,10 +84,10 @@
         "name": "Leeroy",
         "age": 43,
         "started_playing": 2001,
-        "position": "forward",
+        "position_played": "Midfielder",
         "attributes": {
         "physical": {
-            "speed": 92,
+            "speed": 85,
             "strength": 88,
             "stamina": 91,
             "agility": 85
@@ -98,7 +98,7 @@
             "composure": 68
         },
         "technical": {
-            "accuracy": 82,
+            "accuracy": 60,
             "kicking": 85,
             "passing": 77
         }
@@ -110,10 +110,10 @@
         "name": "Jaybo",
         "age": 40,
         "started_playing": 2005,
-        "position": "forward",
+        "position_played": "Defender",
         "attributes": {
         "physical": {
-            "speed": 92,
+            "speed": 80,
             "strength": 88,
             "stamina": 91,
             "agility": 85
@@ -124,7 +124,7 @@
             "composure": 68
         },
         "technical": {
-            "accuracy": 82,
+            "accuracy": 95,
             "kicking": 85,
             "passing": 77
         }
@@ -136,7 +136,7 @@
         "name": "Sian",
         "age": 42,
         "started_playing": 2015,
-        "position": "forward",
+        "position_played": "Forward",
         "attributes": {
         "physical": {
             "speed": 92,

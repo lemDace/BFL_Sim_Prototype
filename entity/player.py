@@ -11,17 +11,19 @@ from effects import Status
 class Player:
     id: int
     name: str
+    age: int
     started_playing: int
+    position_played: str
     position: Vector2
 
 
     def __init__(self, id: int, name: str, age: int, started_playing: int, 
-                 position: Vector2, attributes: dict):
+                 positionPlayed: str, attributes: dict):
         #Creates new palyer instance
         # 'attributes' is expected to be a dictionary loaded from json
         self.id = id
         self.name = name
-        self.position = position
+        self.position_played = positionPlayed
         self.age = age
         self.started_playing = started_playing
         self.attributes = Attributes.from_dict(attributes)
@@ -35,7 +37,20 @@ class Player:
 
     def __repr__(self):
         # Developer-friendly summary of a player (name + attributes)
-        return f"<Player {self.name}: {self.attributes.as_dict()}>"        
+        #return f"<Player {self.name}: {self.attributes.as_dict()}>" 
+        return f"<Player {self.name} ({self.position}), age={self.age}>"       
+
+    def as_dict(self):
+        #Convert back to a JSON-friendly dictionary, e.g. for saving updated player data.
+    
+        return {
+            "id": self.id,
+            "name": self.name,
+            "age": self.age,
+            "started_playing": self.started_playing,
+            "position_played": self.positionPlayed,
+            "attributes": self.attributes.as_dict()
+        }
 
     def get_effective_attr(self, group:str, attr:str):
         base = self.attributes[group].attributes[attr]

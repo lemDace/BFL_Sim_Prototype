@@ -1,4 +1,5 @@
 from euclid3 import Vector2
+import json
 import random
 from entity import *
 
@@ -9,15 +10,47 @@ class GameEngine:
     ball: Ball
     gameLength: float
 
-    def __init__(self, field:Field,hometeam:Team,awayteam:Team) -> None:
+    #def __init__(self, field:Field,hometeam:Team,awayteam:Team) -> None:
+    def __init__(self, field:Field) -> None:
         self.field = field
         self.gameLength = 30
-        self.home_team = hometeam
-        self.away_team = awayteam
+        #self.home_team = hometeam
+        #self.away_team = awayteam
         self.ball = Ball(self.field)
         self.log: list[str] = []
         self.tick_count: int = 0
-        self.active_players = self.home_team.get_active_players() + self.away_team.get_active_players()
+
+        self.players = self.load_players("data/players/players_all.json")
+
+        #prints all players loaded and their speed attribute
+        print(f"Loaded {len(self.players)} players:")
+        for p in self.players:
+            print(f" - {p.name}: speed={p.attributes.get('physical', 'speed')}")
+
+        #self.active_players = self.home_team.get_active_players() + self.away_team.get_active_players()
+
+    def load_players(self, path: str):
+        #Load player data from a JSON file into Player objects.
+        #this loads general player data, not match specific data such as position on field
+
+        with open(path,"r") as f:
+            data = json.load(f) #loads the file into memory (data)
+
+        players =[]
+
+        for p in data['players']:
+            player = Player(
+                id=p['id'],
+                name=p['name'],
+                age=p['age'],
+                started_playing=p['started_playing'],
+                positionPlayed=p['position_played'],
+                attributes=p['attributes']
+            )
+            players.append(player)
+        
+        return players #return the laoded list of player objects
+
 
     #return a list of all active players in this game
     def get_all_players(self) -> list[Player]:
