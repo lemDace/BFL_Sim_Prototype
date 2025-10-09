@@ -16,6 +16,7 @@ class Player:
     started_playing: int
     position_played: str
     position: Vector2
+    has_ball: bool
 
 
     def __init__(self, id: int, name: str, age: int, started_playing: int, 
@@ -28,6 +29,7 @@ class Player:
         self.age = age
         self.started_playing = started_playing
         self.team = team
+        self.has_ball = False
         self.attributes = Attributes.from_dict(attributes)
 
 
@@ -78,7 +80,7 @@ class Player:
     def move_towards_target(self, target: Vector2):
         direction = target - self.position
         direction = direction.normalized()
-        movement = direction * self.speed
+        movement = direction * (self.attributes.get('physical','speed')/35)
         self.position = self.position + movement
 
 
@@ -89,7 +91,7 @@ class Player:
 
 
     #kicks the ball if they have it in the direction given, scaled by kick_strength
-    def kick_ball(self, ball: Ball, direction: Vector2, power: float):
-        ball.kick(direction,power)
+    def kick_ball(self, ball: Ball, direction: Vector2):
+        ball.kick(direction,(self.attributes.get('physical','strength'))/5)
         self.has_ball = False
         

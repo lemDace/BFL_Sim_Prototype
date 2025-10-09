@@ -1,4 +1,5 @@
 from typing import Tuple
+from euclid3 import Vector2
 from entity.player import Player
 
 class Team:
@@ -13,7 +14,8 @@ class Team:
         self.color = color
         self.players = []
 
-    def add_player(self, player: Player) -> None:
+    def add_player(self, player: Player, position: Vector2) -> None:
+        player.position = position
         self.players.append(player)
 
     def get_active_players(self) -> list[Player]:

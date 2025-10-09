@@ -14,8 +14,8 @@ class GameEngine:
     def __init__(self, field:Field) -> None:
         self.field = field
         self.gameLength = 30
-        #self.home_team = hometeam
-        #self.away_team = awayteam
+        self.home_team = Team("Test Team 1", (255,0,200))
+        self.away_team = Team("Test Team 2", (0,200,150))
         self.ball = Ball(self.field)
         self.log: list[str] = []
         self.tick_count: int = 0
@@ -27,7 +27,10 @@ class GameEngine:
         for p in self.players:
             print(f" - {p.name}: Plays for {p.team} ,speed={p.attributes.get('physical', 'speed')}")
 
-        #self.active_players = self.home_team.get_active_players() + self.away_team.get_active_players()
+        self.make_test_teams() #making test teams
+
+
+        self.active_players = self.home_team.get_active_players() + self.away_team.get_active_players()
 
     def load_players(self, path: str):
         #Load player data from a JSON file into Player objects.
@@ -51,6 +54,16 @@ class GameEngine:
             players.append(player)
         
         return players #return the laoded list of player objects
+
+    def make_test_teams(self):
+        self.home_team.add_player(self.players[0],Vector2(700,100+0))
+        self.home_team.add_player(self.players[1],Vector2(700,100+200))
+        self.home_team.add_player(self.players[2],Vector2(700,100+400))
+        self.away_team.add_player(self.players[3],Vector2(300,100+0))
+        self.away_team.add_player(self.players[4],Vector2(300,100+200))
+        self.away_team.add_player(self.players[5],Vector2(300,100+400))
+
+        
 
 
     #return a list of all active players in this game
@@ -77,11 +90,13 @@ class GameEngine:
 
             if closest_player_to_ball.has_ball == True:
 
-                closest_player_to_ball.kick_ball(self.ball,Vector2(random.randint(-350, 350),random.randint(-250,250)),10)
+                closest_player_to_ball.kick_ball(self.ball,Vector2(random.randint(-350, 350),random.randint(-250,250)))
                 self.log.append(f"Tick {self.tick_count}: {closest_player_to_ball.name} kicked the ball")
 
         self.ball.update()
             
         if self.tick_count % 65 == 0:
             self.log.append(f"Ball at ({self.ball.position.x:.1f},{self.ball.position.y:.1f})")
-            self.log.append(f"{closest_player_to_ball.name} focus is: {closest_player_to_ball.get_attribute('focus')}")
+            self.log.append(f"{closest_player_to_ball.name} strength is: {(closest_player_to_ball.attributes.get('physical','strength'))/5}")
+            self.log.append(f"{closest_player_to_ball.name} speed is: {(closest_player_to_ball.attributes.get('physical','speed'))/35}")
+            #self.log.append(f"{closest_player_to_ball.name} location is: {closest_player_to_ball.position.x},{closest_player_to_ball.position.y}")

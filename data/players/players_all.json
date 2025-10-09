@@ -11,7 +11,7 @@
         "attributes": {
         "physical": {
             "speed": 75,
-            "strength": 88,
+            "strength": 45,
             "stamina": 91,
             "agility": 85
         },
@@ -33,12 +33,12 @@
         "name": "Dashy",
         "age": 9,
         "started_playing": 2025,
-        "team": "Allstar Axolotlys",
+        "team": "Axolotly Allstars",
         "position_played": "Defender",
         "attributes": {
         "physical": {
             "speed": 95,
-            "strength": 88,
+            "strength": 90,
             "stamina": 91,
             "agility": 85
         },
@@ -60,12 +60,12 @@
         "name": "Pippa",
         "age": 4,
         "started_playing": 2025,
-        "team": "Allstar Axolotlys",
+        "team": "Axolotly Allstars",
         "position_played": "Forward",
         "attributes": {
         "physical": {
             "speed": 70,
-            "strength": 88,
+            "strength": 85,
             "stamina": 91,
             "agility": 85
         },
@@ -92,7 +92,7 @@
         "attributes": {
         "physical": {
             "speed": 85,
-            "strength": 88,
+            "strength": 60,
             "stamina": 91,
             "agility": 85
         },
@@ -119,7 +119,7 @@
         "attributes": {
         "physical": {
             "speed": 80,
-            "strength": 88,
+            "strength": 100,
             "stamina": 91,
             "agility": 85
         },
@@ -146,7 +146,7 @@
         "attributes": {
         "physical": {
             "speed": 92,
-            "strength": 88,
+            "strength": 50,
             "stamina": 91,
             "agility": 85
         },
