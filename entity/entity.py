@@ -48,3 +48,16 @@ class Entity:
         return f"<{self.__class__.__name__} id={self.id} active={self.active}>"
 
 
+class PhysicalEntity(Entity):
+       
+    """
+    Extends Entity with spatial and physical properties.
+    Used by all in-world entities with a position and velocity.
+    """
+
+    def __init__(self, position=None, velocity=None, orientation=0.0, radius=1.0, **kwargs):
+        super().__init__(**kwargs)
+        self.position = position or Vector2(0.0, 0.0)
+        self.velocity = velocity or Vector2(0.0, 0.0)
+        self.orientation = orientation
+        self.radius = radius
