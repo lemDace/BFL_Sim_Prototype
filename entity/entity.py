@@ -61,3 +61,42 @@ class PhysicalEntity(Entity):
         self.velocity = velocity or Vector2(0.0, 0.0)
         self.orientation = orientation
         self.radius = radius
+
+    # ------------------------------------------------------------------
+    # Physics helpers
+    # ------------------------------------------------------------------
+    def move(self, dt):
+        """Updates position based on velocity."""
+        self.position += self.velocity * dt
+
+    def distance_to(self, other):
+        """Returns distance to another PhysicalEntity or Vector2."""
+        if isinstance(other, PhysicalEntity):
+            return (self.position - other.position).magnitude()
+        elif isinstance(other, Vector2):
+            return (self.position - other).magnitude()
+        else:
+            raise TypeError(f"Cannot measure distance to type: {type(other)}")
+
+    def direction_to(self, other):
+        """Returns normalized direction vector toward another PhysicalEntity or Vector2."""
+        if isinstance(other, PhysicalEntity):
+            other_pos = other.position
+        elif isinstance(other, Vector2):
+            other_pos = other
+        else:
+            raise TypeError(f"Cannot compute direction to type: {type(other)}")
+
+        direction = other_pos - self.position
+        return direction.normalized() if direction.magnitude() != 0 else Vector2(0.0, 0.0)
+
+    # ------------------------------------------------------------------
+    # Overridden lifecycle hook
+    # ------------------------------------------------------------------
+    def on_update(self, dt):
+        """Default behavior: move based on velocity."""
+        self.move(dt)
+
+    def __repr__(self):
+        pos = f"({self.position.x:.2f}, {self.position.y:.2f})"
+        return f"<{self.__class__.__name__} id={self.id} pos={pos} active={self.active}>"        
