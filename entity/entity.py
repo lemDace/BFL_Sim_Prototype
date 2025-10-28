@@ -20,7 +20,7 @@ class Entity:
     # ------------------------------------------------------------------
     # Core lifecycle
     # ------------------------------------------------------------------
-   def on_spawn(self):
+    def on_spawn(self):
         """Called when the entity is created and added to the world."""
         pass
 
