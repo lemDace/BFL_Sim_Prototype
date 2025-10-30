@@ -1,80 +1,86 @@
-from entity import PhysicalEntity
+# player.py
 from euclid3 import Vector2
-from attributes import Attributes,AttributeGroup
+from entity import PhysicalEntity, Ball
+from attributes import Attributes
+from effects import Status
+from match_context import MatchContext
 
-#newPlayer class to eventually replace the Player class.
-#this class will inherit from physicalEntity()
 
-class NewPlayer(PhysicalEntity):
-    
-    #new class def
-
-    team: str
-    started_playing: int
-    position_played: str
-    has_ball: bool
-
-    def __init__(self, id: int, name: str, age: int, started_playing: int, 
-                 team:str, positionPlayed: str, attributes: dict):
-        super().__init__(id=id, name=name,**kwargs)
-        
-        self.team = team
-        self.position_played = positionPlayed
-        self.started_playing = started_playing
+class PlayerV2(PhysicalEntity):
+    def __init__(self, id, name, age, team, position_played, attributes, position=(0, 0)):
+        super().__init__(id=id, position=Vector2(position))
+        self.name = name
         self.age = age
+        self.team = team
+        self.position_played = position_played
+
+        self.attributes = Attributes.from_dict(attributes)
+        self.statuses: list[Status] = []
         self.has_ball = False
-        self.attributes = Attributes.from_dict(attributes)         # 'attributes' is expected to be a dictionary loaded from json
 
-    def get_attribute(self, name):
-        # Convenience wrapper around Attributes.get
-        return self.attributes.get(name)
+        # --- AI placeholders ---
+        self.state = "idle"          # e.g. 'idle', 'chasing', 'holding', etc.
+        self.intent = None           # the immediate action/goal
+        self.target = None           # a position or object to act upon
 
-    def __repr__(self):
-        # Developer-friendly summary of a player (name + attributes)
-        #return f"<Player {self.name}: {self.attributes.as_dict()}>" 
-        return f"<Player {self.name} ({self.team}), age={self.age}>"       
+    # ---------------- Core update loop ---------------- #
 
-    def as_dict(self):
-        #Convert back to a JSON-friendly dictionary, e.g. for saving updated player data.
-    
-        return {
-            "id": self.id,
-            "name": self.name,
-            "age": self.age,
-            "started_playing": self.started_playing,
-            "position_played": self.positionPlayed,
-            "team": self.team,
-            "attributes": self.attributes.as_dict()
-        }
+    def update(self, dt: float, context: MatchContext):
+        """Called every frame/tick by the simulation."""
+        self.update_statuses(dt)
+        self.decide(context)
+        self.act(dt)
 
-    def get_effective_attr(self, group:str, attr:str):
-        base = self.attributes[group].attributes[attr]
-        modifier = 1.0
-        return base * modifier       
-    
-        #moves in direction given, scaled by speed
-    def move(self, direction: Vector2):
-        pass
+    # ---------------- Decision layer ---------------- #
 
-    def distance_to_ball(self, ball: Ball):
-        return (ball.position - self.position).magnitude()
+    def decide(self, context: MatchContext):
+        """
+        Decide what to do next.
+        Later this can be replaced by: self.brain.decide(context)
+        """
+        ball = context.ball
 
-    #moves in the direction of the given target, scaled by speed
-    def move_towards_target(self, target: Vector2):
-        direction = target - self.position
-        direction = direction.normalized()
-        movement = direction * (self.attributes.get('physical','speed')/35)
-        self.position = self.position + movement
+        # Example basic logic:
+        if self.has_ball:
+            self.state = "holding"
+            self.intent = "kick"  # placeholder
+        elif self.is_close_to(ball, radius=10):
+            self.state = "picking_up"
+            self.intent = "pickup"
+        else:
+            self.state = "chasing"
+            self.intent = "move_to"
+            self.target = ball.position
 
+    # ---------------- Action execution ---------------- #
 
+    def act(self, dt: float):
+        """Perform the action decided upon."""
+        if self.intent == "move_to" and self.target is not None:
+            self.move_towards(self.target, dt)
+        elif self.intent == "pickup":
+            self.pick_up_ball()
+        elif self.intent == "kick":
+            self.kick_ball()  # direction & logic TBD
 
-    #picks up a ball
-    def pick_up_ball(self, ball: Ball):
+    # ---------------- Movement & Interaction ---------------- #
+
+    def move_towards(self, target: Vector2, dt: float):
+        direction = (target - self.position).normalized()
+        speed = self.attributes.get("physical", "speed")
+        self.velocity = direction * speed
+        self.position += self.velocity * dt
+
+    def is_close_to(self, other_entity, radius: float) -> bool:
+        return (self.position - other_entity.position).magnitude() <= radius
+
+    def pick_up_ball(self):
         self.has_ball = True
 
+    def kick_ball(self):
+        # Placeholder: could use self.target or context later
+        pass
 
-    #kicks the ball if they have it in the direction given, scaled by kick_strength
-    def kick_ball(self, ball: Ball, direction: Vector2):
-        ball.kick(direction,(self.attributes.get('physical','strength'))/5)
-        self.has_ball = False
-        
+    def update_statuses(self, dt):
+        for status in self.statuses:
+            status.tick(dt)
